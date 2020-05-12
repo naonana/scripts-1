@@ -36,21 +36,13 @@ BUILD_DATE=$(date +"%Y-%m-%d"-%H%M)
 PATH="${KERNELDIR}/clang/bin:$PATH"
 
 # Kernel revision
-KERNELRELEASE=HMP
+KERNELRELEASE=OC
 
 # Function to replace defconfig versioning
 setversioning() {
-    if [[ "${PARSE_BRANCH}" =~ "reina"* ]]; then
-    	# For staging branch
 	    KERNELTYPE=Gabut
 	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-OldCam-${BUILD_DATE}"
 	    sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
-    elif [[ "${PARSE_BRANCH}" =~ "reina-newcam"* ]]; then
-	    # For stable (ten) branch
-	    KERNELTYPE=Gabut
-	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-${CAMLIBS}-${BUILD_DATE}"
-        sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
-    fi
     # Export our new localversion and zipnames
     export KERNELTYPE KERNELNAME
     export TEMPZIPNAME="${KERNELNAME}-unsigned.zip"
@@ -159,7 +151,7 @@ fixcilto() {
 ## Start the kernel buildflow ##
 setversioning
 fixcilto
-tg_groupcast "${KERNEL} compilation started at $(date +%Y%m%d-%H%M)!"
+tg_groupcast "${KERNEL} OC Compilation started at $(date +%Y%m%d-%H%M)!"
 tg_channelcast "Compiler: <code>Avalon Clang</code>" \
 	"Device: <b>${DEVICE}</b>" \
 	"Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
