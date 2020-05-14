@@ -41,7 +41,7 @@ KERNELRELEASE=OC
 # Function to replace defconfig versioning
 setversioning() {
 	    KERNELTYPE=Gabut
-	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-NewDt2w-OldCam-${BUILD_DATE}"
+	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-NewDt2w-NewCam-${BUILD_DATE}"
 	    sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     # Export our new localversion and zipnames
     export KERNELTYPE KERNELNAME
@@ -119,7 +119,7 @@ shipkernel() {
 
 # Ship China firmware builds
 setoldcam() {
-    git revert 410f664bef7749f5c77defaf71328e190467e801
+    git reset --hard HEAD^
 }
 
 # Ship China firmware builds
@@ -141,7 +141,7 @@ newled() {
 
 #Setver 2 for newcam
 setver2() {
-    KERNELNAME="${KERNEL}-${KERNELRELEASE}-NewDt2-NewCam-${BUILD_DATE}"
+    KERNELNAME="${KERNEL}-${KERNELRELEASE}-NewDt2-OldCam-${BUILD_DATE}"
     sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     export KERNELTYPE KERNELNAME
     export TEMPZIPNAME="${KERNELNAME}-unsigned.zip"
