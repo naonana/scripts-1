@@ -41,7 +41,7 @@ KERNELRELEASE=OC
 # Function to replace defconfig versioning
 setversioning() {
 	    KERNELTYPE=Gabut
-	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-NewDt2w-NewCam-${BUILD_DATE}"
+	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-NewDt2w-OldCam-${BUILD_DATE}"
 	    sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     # Export our new localversion and zipnames
     export KERNELTYPE KERNELNAME
@@ -123,6 +123,15 @@ setoldcam() {
 }
 
 # Ship China firmware builds
+setnewcam() {
+    export CAMLIBS=NewCam
+    # Pick DSP change
+    git remote add sb https://github.com/Reinazhard/kranul-1.git
+    git fetch sb
+    git cherry-pick 410f664bef7749f5c77defaf71328e190467e801
+}
+
+# Ship China firmware builds
 clearout() {
     # Pick DSP change
     rm -rf out
@@ -141,7 +150,7 @@ newled() {
 
 #Setver 2 for newcam
 setver2() {
-    KERNELNAME="${KERNEL}-${KERNELRELEASE}-NewDt2-OldCam-${BUILD_DATE}"
+    KERNELNAME="${KERNEL}-${KERNELRELEASE}-NewDt2w-NewCam-${BUILD_DATE}"
     sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     export KERNELTYPE KERNELNAME
     export TEMPZIPNAME="${KERNELNAME}-unsigned.zip"
@@ -167,12 +176,13 @@ tg_channelcast "Compiler: <code>Avalon Clang</code>" \
 	"For moar cl, check my repo https://github.com/Reinazhard/kranul.git" \
 
 START=$(date +"%s")
+setoldcam
 newled
 makekernel || exit 1
 shipkernel
+setnewcam
 setver2
 clearout
-setoldcam
 makekernel || exit 1
 shipkernel
 END=$(date +"%s")
