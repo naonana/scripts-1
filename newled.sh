@@ -119,7 +119,7 @@ shipkernel() {
 
 # Ship China firmware builds
 setoldcam() {
-    git reset --hard HEAD^
+    git reset --hard HEAD^^
 }
 
 # Ship China firmware builds
