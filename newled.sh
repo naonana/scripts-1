@@ -18,7 +18,7 @@ CIPROVIDER=CircleCI
 KERNELFW=Global
 PARSE_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 PARSE_ORIGIN="$(git config --get remote.origin.url)"
-COMMIT_POINT="$(git log --pretty=format:'%h : %s' -10)"
+COMMIT_POINT="$(git log --pretty=format:'%h : %s' -1)"
 
 #Kearipan Lokal
 export KBUILD_BUILD_USER=reina
