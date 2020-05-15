@@ -173,6 +173,7 @@ tg_channelcast "Build for New Dt2w Started" \
 START=$(date +"%s")
 setoldcam
 newled
+clearout
 makekernel || exit 1
 shipkernel
 setnewcam
