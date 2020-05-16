@@ -30,7 +30,7 @@ TG_GROUP=-1001493260868
 
 #Datetime
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
-BUILD_DATE=$(date +"%Y-%m-%d"-%H%M)
+BUILD_DATE=$(TZ=Asia/Jakarta date +"%Y-%m-%d"-%H%M)
 
 # Clang is annoying
 PATH="${KERNELDIR}/clang/bin:$PATH"
@@ -152,11 +152,7 @@ fixcilto() {
 setversioning
 fixcilto
 tg_groupcast "${KERNEL} OC Compilation started at $(date +%Y%m%d-%H%M)!"
-tg_channelcast "Compiler: <code>Avalon Clang</code>" \
-	"Device: <b>${DEVICE}</b>" \
-	"Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
-	"Branch: <code>${PARSE_BRANCH}</code>" \
-	"Clocked at: <code>$(date +%Y%m%d-%H%M)</code>" \
+tg_channelcast "${KERNEL} OC Compilation Started
 	"Latest Commit: <code>${COMMIT_POINT}</code>" \
 	"For moar cl, check my repo https://github.com/Reinazhard/kranul.git" \
 
