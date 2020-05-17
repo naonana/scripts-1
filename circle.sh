@@ -162,7 +162,6 @@ START=$(date +"%s")
 makekernel || exit 1
 shipkernel
 setver2
-clearout
 setnewcam
 makekernel || exit 1
 shipkernel
