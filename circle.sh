@@ -12,7 +12,7 @@ export ANYKERNEL=$(pwd)/anykernel3
 
 # Avoid hardcoding things
 KERNEL=Zhard
-DEFCONFIG=whyred_defconfig
+DEFCONFIG=whyred-perf_defconfig
 DEVICE=Whyred
 CIPROVIDER=CircleCI
 KERNELFW=Global
