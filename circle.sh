@@ -151,6 +151,7 @@ fixcilto() {
 
 ## Start the kernel buildflow ##
 setversioning
+fixcilto
 tg_groupcast "${KERNEL} OC Compilation started at $(date +%Y%m%d-%H%M)!"
 tg_channelcast "${KERNEL} OC Compilation Started" \
 	"Latest Commit: <code>${COMMIT_POINT}</code>" \
