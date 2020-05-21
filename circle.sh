@@ -12,7 +12,7 @@ export ANYKERNEL=$(pwd)/anykernel3
 
 # Avoid hardcoding things
 KERNEL=Zhard
-DEFCONFIG=whyred_defconfig
+DEFCONFIG=whyred-perf_defconfig
 DEVICE=Whyred
 CIPROVIDER=CircleCI
 KERNELFW=Global
@@ -30,13 +30,13 @@ TG_GROUP=-1001493260868
 
 #Datetime
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
-BUILD_DATE=$(date +"%Y-%m-%d"-%H%M)
+BUILD_DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T-%H%M)
 
 # Clang is annoying
 PATH="${KERNELDIR}/clang/bin:$PATH"
 
 # Kernel revision
-KERNELRELEASE=HMP
+KERNELRELEASE=HMP-REBASE
 
 # Function to replace defconfig versioning
 setversioning() {
@@ -160,11 +160,8 @@ fixcilto() {
 setversioning
 fixcilto
 tg_groupcast "${KERNEL} compilation started at $(date +%Y%m%d-%H%M)!"
-tg_channelcast "Compiler: <code>Avalon Clang</code>" \
-	"Device: <b>${DEVICE}</b>" \
-	"Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
+tg_channelcast "Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 	"Branch: <code>${PARSE_BRANCH}</code>" \
-	"Clocked at: <code>$(date +%Y%m%d-%H%M)</code>" \
 	"Latest Commit: <code>${COMMIT_POINT}</code>" \
 	"For moar cl, check my repo https://github.com/Reinazhard/kranul.git" \
 
@@ -172,7 +169,6 @@ START=$(date +"%s")
 makekernel || exit 1
 shipkernel
 setver2
-clearout
 setnewcam
 makekernel || exit 1
 shipkernel
