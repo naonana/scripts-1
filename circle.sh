@@ -30,7 +30,7 @@ TG_GROUP=-1001493260868
 
 #Datetime
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
-BUILD_DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T-%H%M)
+BUILD_DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T-%H%M")
 
 # Clang is annoying
 PATH="${KERNELDIR}/clang/bin:$PATH"
@@ -156,7 +156,7 @@ tg_groupcast "${KERNEL} compilation started at $(date +%Y%m%d-%H%M)!"
 tg_channelcast "Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 	"Branch: <code>${PARSE_BRANCH}</code>" \
 	"Latest Commit: <code>${COMMIT_POINT}</code>" \
-	"For moar cl, check my repo https://github.com/Reinazhard/kranul.git" 
+	"For moar cl, check my repo https://github.com/Reinazhard/kranul" 
 
 START=$(date +"%s")
 makekernel || exit 1
