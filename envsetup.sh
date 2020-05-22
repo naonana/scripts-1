@@ -18,10 +18,10 @@ git clone https://github.com/Haseo97/Avalon-Clang-11.0.1.git --depth=1 "${KERNEL
 COMPILER_STRING='Avalon Clang (latest)'
 COMPILER_TYPE='clang'
 # Default to GCC from Arter
-git clone https://github.com/arter97/arm32-gcc.git --depth=1 "${KERNELDIR}/gcc32"
-git clone https://github.com/arter97/arm64-gcc.git --depth=1 "${KERNELDIR}/gcc"
-COMPILER_STRING='Avalon Clang'
-COMPILER_TYPE='Clang'
+git clone https://github.com/baalajimaestro/arm-maestro-linux-gnueabi.git --depth=1 -b 05022020-9.2.1 "${KERNELDIR}/gcc32"
+git clone https://github.com/baalajimaestro/aarch64-maestro-linux-android.git --depth=1 -b 05022020-9.2.1 "${KERNELDIR}/gcc"
+COMPILER_STRING='GCC 9.X.X'
+COMPILER_TYPE='gcc'
 
 export COMPILER_STRING COMPILER_TYPE KERNELDIR SCRIPTS OUTDIR
 
