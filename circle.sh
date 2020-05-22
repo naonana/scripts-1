@@ -85,8 +85,8 @@ makekernel() {
     git clone https://github.com/Reinazhard/AnyKernel3 -b master anykernel3
     kernelstringfix
     export PATH="${KERNELDIR}/clang/bin:$PATH"
-    export CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-elf-"
-    export CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-eabi-"
+    export CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-maestro-linux-gnu-"
+    export CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-maestro-linux-gnueabi-"
     make O=out ARCH=arm64 ${DEFCONFIG}
     make -j$(nproc --all) O=out ARCH=arm64
     # Check if compilation is done successfully.
