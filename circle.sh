@@ -18,7 +18,7 @@ CIPROVIDER=CircleCI
 KERNELFW=Global
 PARSE_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 PARSE_ORIGIN="$(git config --get remote.origin.url)"
-COMMIT_POINT="$(git log --pretty=format:'%h : %s' -10)"
+COMMIT_POINT="$(git log --pretty=format:'%h : %s' -1)"
 
 #Kearipan Lokal
 export KBUILD_BUILD_USER=reina
@@ -30,27 +30,20 @@ TG_GROUP=-1001493260868
 
 #Datetime
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
-BUILD_DATE=$(date +"%Y-%m-%d"-%H%M)
+BUILD_DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T"-%H%M)
 
 # Clang is annoying
 PATH="${KERNELDIR}/clang/bin:$PATH"
 
 # Kernel revision
-KERNELRELEASE=HMP
+KERNELRELEASE=EAS
 
 # Function to replace defconfig versioning
 setversioning() {
-    if [[ "${PARSE_BRANCH}" =~ "reina"* ]]; then
-    	# For staging branch
-	    KERNELTYPE=Gabut
-	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-OldCam-${BUILD_DATE}"
-	    sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
-    elif [[ "${PARSE_BRANCH}" =~ "reina-newcam"* ]]; then
 	    # For stable (ten) branch
 	    KERNELTYPE=Gabut
-	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-${CAMLIBS}-${BUILD_DATE}"
+	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-${BUILD_DATE}"
         sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
-    fi
     # Export our new localversion and zipnames
     export KERNELTYPE KERNELNAME
     export TEMPZIPNAME="${KERNELNAME}-unsigned.zip"
@@ -172,7 +165,6 @@ START=$(date +"%s")
 makekernel || exit 1
 shipkernel
 setver2
-clearout
 setnewcam
 makekernel || exit 1
 shipkernel
