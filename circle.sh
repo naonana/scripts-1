@@ -153,11 +153,8 @@ fixcilto() {
 setversioning
 fixcilto
 tg_groupcast "${KERNEL} compilation started at $(date +%Y%m%d-%H%M)!"
-tg_channelcast "Compiler: <code>Avalon Clang</code>" \
-	"Device: <b>${DEVICE}</b>" \
+tg_channelcast 
 	"Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
-	"Branch: <code>${PARSE_BRANCH}</code>" \
-	"Clocked at: <code>$(date +%Y%m%d-%H%M)</code>" \
 	"Latest Commit: <code>${COMMIT_POINT}</code>" \
 	"For moar cl, check my repo https://github.com/Reinazhard/kranul.git" \
 
