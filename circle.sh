@@ -94,8 +94,8 @@ makekernel() {
 	    END=$(date +"%s")
 	    DIFF=$(( END - START ))
 	    echo -e "build Failed LMAO !!, See buildlog to fix errors"
-	    tg_channelcast "Build for ${DEVICE} (${KERNELFW}) <b>Failed LMAO</b> in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! Check ${CIPROVIDER} for errors!"
-	    tg_groupcast "Build for ${DEVICE} (${KERNELFW}) <b>Failed LMAO</b> in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! Check ${CIPROVIDER} for errors @eve_enryu @reinazhardci"
+	    tg_channelcast "❌Build for ${DEVICE} (${KERNELFW}) <b>Failed LMAO</b> in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! Check ${CIPROVIDER} for errors!"
+	    tg_groupcast "❌Build for ${DEVICE} (${KERNELFW}) <b>Failed LMAO</b> in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! Check ${CIPROVIDER} for errors @eve_enryu @reinazhardci"
 	    exit 1
     fi
 }
@@ -154,11 +154,10 @@ fixcilto() {
 ## Start the kernel buildflow ##
 setversioning
 fixcilto
-tg_groupcast "${KERNEL} compilation started at $(date +%Y%m%d-%H%M)!"
-tg_channelcast 
-	"Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
+tg_groupcast "🔨${KERNEL} compilation started at $(date +%Y%m%d-%H%M)!"
+tg_channelcast "🔨Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 	"Latest Commit: <code>${COMMIT_POINT}</code>" \
-	"For moar cl, check my repo https://github.com/Reinazhard/kranul.git" \
+	"For moar cl, check my repo https://github.com/Reinazhard/kranul.git" 
 
 START=$(date +"%s")
 makekernel || exit 1
@@ -169,5 +168,5 @@ makekernel || exit 1
 shipkernel
 END=$(date +"%s")
 DIFF=$(( END - START ))
-tg_channelcast "Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)!"
-tg_groupcast "Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! @reinazhardci"
+tg_channelcast "✅Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)!"
+tg_groupcast "✅Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! @reinazhardci"
