@@ -30,17 +30,17 @@ TG_GROUP=-1001493260868
 
 #Datetime
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
-BUILD_DATE=$(date +"%Y-%m-%d"-%H%M)
+BUILD_DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%%H%M")
 
 # Clang is annoying
 PATH="${KERNELDIR}/clang/bin:$PATH"
 
 # Kernel revision
-KERNELRELEASE=OC
+KERNELRELEASE=EAS
 
 # Function to replace defconfig versioning
 setversioning() {
-	    KERNELTYPE=Gabut
+    	# For staging branch
 	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-OldCam-${BUILD_DATE}"
 	    sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     # Export our new localversion and zipnames
@@ -82,6 +82,8 @@ makekernel() {
     # Clean any old AnyKernel
     rm -rf ${ANYKERNEL}
     git clone https://github.com/Reinazhard/AnyKernel3 -b master anykernel3
+    #export CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-maestro-linux-gnu-"
+    #export CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-maestro-linux-gnueabi-"
     kernelstringfix
     export PATH="${KERNELDIR}/clang/bin:$PATH"
     make O=out ARCH=arm64 ${DEFCONFIG}
@@ -91,8 +93,8 @@ makekernel() {
 	    END=$(date +"%s")
 	    DIFF=$(( END - START ))
 	    echo -e "build Failed LMAO !!, See buildlog to fix errors"
-	    tg_channelcast "Build for ${DEVICE} (${KERNELFW}) <b>Failed LMAO</b> in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! Check ${CIPROVIDER} for errors!"
-	    tg_groupcast "Build for ${DEVICE} (${KERNELFW}) <b>Failed LMAO</b> in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! Check ${CIPROVIDER} for errors @eve_enryu @reinazhardci"
+	    tg_channelcast "❌Build for ${DEVICE} (${KERNELFW}) <b>Failed LMAO</b> in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! Check ${CIPROVIDER} for errors!"
+	    tg_groupcast "❌Build for ${DEVICE} (${KERNELFW}) <b>Failed LMAO</b> in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! Check ${CIPROVIDER} for errors @eve_enryu @reinazhardci"
 	    exit 1
     fi
 }
@@ -151,26 +153,20 @@ fixcilto() {
 ## Start the kernel buildflow ##
 setversioning
 fixcilto
-tg_groupcast "${KERNEL} OC Compilation started at $(date +%Y%m%d-%H%M)!"
-tg_channelcast "Compiler: <code>Avalon Clang</code>" \
-	"Device: <b>${DEVICE}</b>" \
-	"Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
-	"Branch: <code>${PARSE_BRANCH}</code>" \
-	"Clocked at: <code>$(date +%Y%m%d-%H%M)</code>" \
+tg_groupcast "🔨 ${KERNEL} compilation started at $(date +%Y%m%d-%H%M)!"
+tg_channelcast "🔨 Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 	"Latest Commit: <code>${COMMIT_POINT}</code>" \
-	"For moar cl, check my repo https://github.com/Reinazhard/kranul.git" \
+	"For moar cl, check my repo https://github.com/Reinazhard/kranul.git" 
+
 
 START=$(date +"%s")
 makekernel || exit 1
 shipkernel
 setver2
-clearout
 setnewcam
 makekernel || exit 1
 shipkernel
 END=$(date +"%s")
 DIFF=$(( END - START ))
-tg_channelcast "Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)!"
-tg_groupcast "Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! @reinazhardci"
-
-./kscripts/newled.sh
+tg_channelcast "✅ Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)!"
+tg_groupcast "✅ Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! @reinazhardci"
