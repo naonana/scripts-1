@@ -87,7 +87,7 @@ makekernel() {
     kernelstringfix
     export PATH="${KERNELDIR}/clang/bin:$PATH"
     make O=out ARCH=arm64 ${DEFCONFIG}
-    make -j$(nproc --all) CC=clang O=out ARCH=arm64 CLANG_TRIPLE=aarch64-maestro-linux-gnu-
+    make -j$(nproc --all) ARCH=arm64 O=out #CC=clang CLANG_TRIPLE=aarch64-maestro-linux-gnu-
     # Check if compilation is done successfully.
     if ! [ -f "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb ]; then
 	    END=$(date +"%s")
