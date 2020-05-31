@@ -123,9 +123,7 @@ shipkernel() {
 setnewcam() {
     export CAMLIBS=NewCam
     # Pick DSP change
-    git remote add sb https://github.com/Reinazhard/kranul-1.git
-    git fetch sb
-    git cherry-pick 410f664bef7749f5c77defaf71328e190467e801
+    git cherry-pick 549aa793898b19b17f3a9e7732273d2f6607b3a7
 }
 
 # Ship China firmware builds
