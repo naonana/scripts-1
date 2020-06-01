@@ -124,6 +124,7 @@ setnewcam() {
     export CAMLIBS=NewCam
     # Pick DSP change
     sed -i 's/CONFIG_XIAOMI_NEW_CAMERA_BLOBS=n/CONFIG_XIAOMI_NEW_CAMERA_BLOBS=y/g' arch/arm64/configs/${DEFCONFIG}
+    echo "Newcam ready"
 }
 
 # Ship China firmware builds
