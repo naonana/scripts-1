@@ -11,6 +11,7 @@ export TELEGRAM_TOKEN=1176154929:AAEwBruEeSm92J2VgHGrLuJroL4oKkd0j-k #Plox dont 
 export ANYKERNEL=$(pwd)/anykernel3
 
 # Avoid hardcoding things
+VERSION=r1
 KERNEL=Zhard
 DEFCONFIG=whyred_defconfig
 DEVICE=Whyred
@@ -41,7 +42,7 @@ KERNELRELEASE=HMP
 # Function to replace defconfig versioning
 setversioning() {
     	# For staging branch
-	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-OldCam-${BUILD_DATE}"
+	    KERNELNAME="${KERNEL}-${VERSION}-${KERNELRELEASE}-OldCam"
 	    sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     
     # Export our new localversion and zipnames
@@ -109,10 +110,10 @@ makekernel() {
     git clone https://github.com/Reinazhard/AnyKernel3 -b master anykernel3
     kernelstringfix
     export PATH="${KERNELDIR}/clang/bin:$PATH"
-    #export CROSS_COMPILE=${KERNELDIR}/gcc/bin/aarch64-linux-gnu-
-    #export CROSS_COMPILE_ARM32=${KERNELDIR}/gcc32/bin/arm-maestro-linux-gnueabi-
+    export CROSS_COMPILE=${KERNELDIR}/gcc/bin/aarch64-linux-gnu-
+    export CROSS_COMPILE_ARM32=${KERNELDIR}/gcc32/bin/arm-maestro-linux-gnueabi-
     make O=out ARCH=arm64 ${DEFCONFIG}
-    make -j$(nproc --all) O=out ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi-
+    make -j$(nproc --all) O=out ARCH=arm64 #CC=clang CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi-
     # Check if compilation is done successfully.
     if ! [ -f "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb ]; then
 	    END=$(date +"%s")
@@ -162,7 +163,7 @@ clearout() {
 
 #Setver 2 for newcam
 setver2() {
-    KERNELNAME="${KERNEL}-${KERNELRELEASE}-NewCam-${BUILD_DATE}"
+    KERNELNAME="${KERNEL}-${VERSION}-${KERNELRELEASE}-NewCam-"
     sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     export KERNELTYPE KERNELNAME
     export TEMPZIPNAME="${KERNELNAME}-unsigned.zip"
