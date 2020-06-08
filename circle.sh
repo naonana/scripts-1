@@ -11,6 +11,7 @@ export TELEGRAM_TOKEN=1176154929:AAEwBruEeSm92J2VgHGrLuJroL4oKkd0j-k #Plox dont 
 export ANYKERNEL=$(pwd)/anykernel3
 
 # Avoid hardcoding things
+VERSION=r1
 KERNEL=Zhard
 DEFCONFIG=whyred_defconfig
 DEVICE=Whyred
@@ -41,7 +42,7 @@ KERNELRELEASE=HMP
 # Function to replace defconfig versioning
 setversioning() {
     	# For staging branch
-	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-OldCam-${BUILD_DATE}"
+	    KERNELNAME="${KERNEL}-${VERSION}-${KERNELRELEASE}-OldCam"
 	    sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     
     # Export our new localversion and zipnames
@@ -62,7 +63,7 @@ tg_groupcast() {
 
 # Send to channel
 tg_channelcast() {
-    "${TELEGRAM}" -c "${CI_CHANNEL}" -H \
+    "${TELEGRAM}" -c "${CI_CHANNEL}" -H -D\
     "$(
 		for POST in "${@}"; do
 			echo "${POST}"
@@ -163,7 +164,7 @@ clearout() {
 
 #Setver 2 for newcam
 setver2() {
-    KERNELNAME="${KERNEL}-${KERNELRELEASE}-NewCam-${BUILD_DATE}"
+    KERNELNAME="${KERNEL}-${VERSION}-${KERNELRELEASE}-NewCam-"
     sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     export KERNELTYPE KERNELNAME
     export TEMPZIPNAME="${KERNELNAME}-unsigned.zip"
@@ -195,4 +196,4 @@ END=$(date +"%s")
 DIFF=$(( END - START ))
 tg_channelcast "✅Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)!"
 tg_groupcast "Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! @reinazhardci"
-sticker
+stiker
