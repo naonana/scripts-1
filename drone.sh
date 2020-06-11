@@ -58,8 +58,11 @@ mkdir "${KERNELDIR}"/out
 ln -s "${SEMAPHORE_CACHE_DIR}"/out "${KERNELDIR}"/out
 rm -rf "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb
 
+export CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-linux-elf-" 
+export CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-linux-eabi-"
+
 make O=out ARCH=arm64 whyred_defconfig
-make -j"${JOBS}" O=out ARCH=arm64 CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-linux-elf-" CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-linux-eabi-"
+make -j"${JOBS}" O=out ARCH=arm64 #CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-linux-elf-" CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-linux-eabi-"
 
 END=$(date +"%s")
 DIFF=$(( END - START ))
