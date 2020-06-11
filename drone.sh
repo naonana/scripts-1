@@ -11,10 +11,10 @@
 . "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"/envsetup.sh
 
 # Clone our AnyKernel3 branch to KERNELDIR
-git clone https://github.com/Reinazhard/AnyKernel3.git -b master anykernel3
+git clone -j32 https://github.com/Reinazhard/AnyKernel3.git -b master anykernel3
 
 # Clone Telegram binaries
-git clone https://github.com/fabianonline/telegram.sh/ telegram
+git clone -j32 https://github.com/fabianonline/telegram.sh/ telegram
 
 # Send to main group
 tg_groupcast() {
@@ -38,7 +38,7 @@ tg_channelcast() {
 
 # Let's announce our naisu new kernel!
 tg_groupcast "Zhard compilation clocked at $(date +%Y%m%d-%H%M)!"
-tg_channelcast "Compiler: <code>${COMPILER_STRING}</code>" \
+tg_channelcast " 🛠Compiler: <code>${COMPILER_STRING}</code>" \
 	"Device: <b>${DEVICE}</b>" \
 	"Kernel: <code>Zhard, release ${KERNELRELEASE}</code>" \
 	"Branch: <code>${PARSE_BRANCH}</code>" \
@@ -59,7 +59,7 @@ ln -s "${SEMAPHORE_CACHE_DIR}"/out "${KERNELDIR}"/out
 rm -rf "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb
 
 make O=out ARCH=arm64 whyred_defconfig
-make -j"${JOBS}" O=out ARCH=arm64 CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-elf-" CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-eabi-"
+make -j"${JOBS}" O=out ARCH=arm64 CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-linux-elf-" CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-linux-eabi-"
 
 END=$(date +"%s")
 DIFF=$(( END - START ))
