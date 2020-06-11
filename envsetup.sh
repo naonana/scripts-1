@@ -61,11 +61,11 @@ ANYKERNEL=$(pwd)/anykernel3
 CPU="$(grep -c '^processor' /proc/cpuinfo)"
 JOBS="$((CPU * 2))"
 
-export CCACHE_DIR="$HOME/.ccache"
-export CC="ccache gcc"
-export CXX="ccache g++"
-export PATH="/usr/lib/ccache:$PATH"
-ccache -M 5G
+#export CCACHE_DIR="$HOME/.ccache"
+#export CC="ccache gcc"
+#export CXX="ccache g++"
+#export PATH="/usr/lib/ccache:$PATH"
+#ccache -M 5G
 
 # Parse git things
 PARSE_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
