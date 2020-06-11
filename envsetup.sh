@@ -17,10 +17,10 @@ BUILD_DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M")
 
 # Pick your poison
         # Default to GCC from kdrag0n
-        git clone https://github.com/baalajimaestro/aarch64-maestro-linux-android -b 20102019-9.2.1 --depth=1 "${KERNELDIR}/gcc"
-        git clone https://github.com/baalajimaestro/arm-maestro-linux-gnueabi -b 20102019 --depth=1 "${KERNELDIR}/gcc32"
-        COMPILER_STRING='GCC 9'
-        COMPILER_TYPE='GCC9'
+        git clone -j32 https://github.com/Reinazhard/gcc.git -b 11.x--depth=1 "${KERNELDIR}/gcc"
+        git clone -j32 https://github.com/Reinazhard/gcc.git -b 11.x-arm --depth=1 "${KERNELDIR}/gcc32"
+        COMPILER_STRING='GCC 11'
+        COMPILER_TYPE='GCC11'
 
 export COMPILER_STRING COMPILER_TYPE KERNELDIR SCRIPTS OUTDIR BUILD_DATE
 
