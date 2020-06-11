@@ -122,7 +122,7 @@ makekernel() {
     export CROSS_COMPILE=${KERNELDIR}/gcc/aarch64-linux-elf/bin/aarch64-linux-elf-
     export CROSS_COMPILE_ARM32=${KERNELDIR}/gcc32/bin/arm-linux-eabi-
     make O=out ARCH=arm64 ${DEFCONFIG}
-    make -j"${CPU_CORE}" O=out ARCH=arm64 #CC=clang CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi-
+    make -j32 O=out ARCH=arm64 #CC=clang CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi-
     # Check if compilation is done successfully.
     if ! [ -f "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb ]; then
 	    END=$(date +"%s")
