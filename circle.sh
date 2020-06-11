@@ -20,6 +20,10 @@ KERNELFW=Global
 PARSE_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 PARSE_ORIGIN="$(git config --get remote.origin.url)"
 COMMIT_POINT="$(git log --pretty=format:'%h : %s' -1)"
+CPU="$(grep -c '^processor' /proc/cpuinfo)"
+CPU_CORE="$((CPU * 2))"
+export CPU
+export CPU_CORE
 
 #Kearipan Lokal
 export KBUILD_BUILD_USER=reina
@@ -110,10 +114,15 @@ makekernel() {
     git clone https://github.com/Reinazhard/AnyKernel3 -b master anykernel3
     kernelstringfix
     #export PATH="${KERNELDIR}/clang/bin:$PATH"
+    export CCACHE_DIR="$HOME/.ccache"
+    export CC="ccache gcc"
+    export CXX="ccache g++"
+    export PATH="/usr/lib/ccache:$PATH"
+    ccache -M 5G
     export CROSS_COMPILE=${KERNELDIR}/gcc/aarch64-linux-elf/bin/aarch64-linux-elf-
-    export CROSS_COMPILE_ARM32=${KERNELDIR}/gcc32/bin/arm-eabi-
+    export CROSS_COMPILE_ARM32=${KERNELDIR}/gcc32/bin/arm-linux-eabi-
     make O=out ARCH=arm64 ${DEFCONFIG}
-    make -j$(nproc --all) O=out ARCH=arm64 #CC=clang CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi-
+    make -j"${CPU_CORE}" O=out ARCH=arm64 #CC=clang CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi-
     # Check if compilation is done successfully.
     if ! [ -f "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb ]; then
 	    END=$(date +"%s")
