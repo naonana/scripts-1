@@ -11,7 +11,7 @@
 # Export KERNELDIR as en environment-wide thingy
 # We start in scripts, so like, don't clone things there
 KERNELDIR="$(pwd)"
-SCRIPTS=${KERNELDIR}/kernelscripts
+SCRIPTS=${KERNELDIR}/scripts
 OUTDIR=${KERNELDIR}/out
 BUILD_DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M")
 
@@ -58,6 +58,12 @@ ANYKERNEL=$(pwd)/anykernel3
 # Kanged from @raphielscape <3
 CPU="$(grep -c '^processor' /proc/cpuinfo)"
 JOBS="$((CPU * 2))"
+
+export CCACHE_DIR="$HOME/.ccache"
+export CC="ccache gcc"
+export CXX="ccache g++"
+export PATH="/usr/lib/ccache:$PATH"
+ccache -M 5G
 
 # Parse git things
 PARSE_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
