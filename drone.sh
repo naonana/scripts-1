@@ -11,7 +11,7 @@
 . "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"/envsetup.sh
 
 # Clone our AnyKernel3 branch to KERNELDIR
-git clone https://github.com/nysascape/Acrux-AK3 -b master anykernel3
+git clone https://github.com/Reinazhard/AnyKernel3.git -b master anykernel3
 
 # Clone Telegram binaries
 git clone https://github.com/fabianonline/telegram.sh/ telegram
@@ -28,7 +28,7 @@ tg_groupcast() {
 
 # sendcast to channel
 tg_channelcast() {
-    "${TELEGRAM}" -c "${CI_CHANNEL}" -H \
+    "${TELEGRAM}" -c "${CI_CHANNEL}" -H -D\
     "$(
 		for POST in "${@}"; do
 			echo "${POST}"
@@ -37,10 +37,10 @@ tg_channelcast() {
 }
 
 # Let's announce our naisu new kernel!
-tg_groupcast "Acrux compilation clocked at $(date +%Y%m%d-%H%M)!"
+tg_groupcast "Zhard compilation clocked at $(date +%Y%m%d-%H%M)!"
 tg_channelcast "Compiler: <code>${COMPILER_STRING}</code>" \
 	"Device: <b>${DEVICE}</b>" \
-	"Kernel: <code>Acrux, release ${KERNELRELEASE}</code>" \
+	"Kernel: <code>Zhard, release ${KERNELRELEASE}</code>" \
 	"Branch: <code>${PARSE_BRANCH}</code>" \
 	"Commit point: <code>${COMMIT_POINT}</code>" \
 	"Under <code>${CIPROVIDER}</code>" \
@@ -58,16 +58,8 @@ mkdir "${KERNELDIR}"/out
 ln -s "${SEMAPHORE_CACHE_DIR}"/out "${KERNELDIR}"/out
 rm -rf "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb
 
-make O=out ARCH=arm64 acrux_defconfig
-if [[ "${COMPILER_TYPE}" =~ "clang"* ]]; then
-        make -j"${JOBS}" O=out ARCH=arm64 CC=clang CLANG_TRIPLE="aarch64-linux-gnu-" CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-linux-gnu-" CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-maestro-linux-gnueabi-"
-elif [[ "${COMPILER_TYPE}" =~ "GCC10"* ]]; then
-	make -j"${JOBS}" O=out ARCH=arm64 CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-raphiel-elf-" CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-maestro-linux-gnueabi-"
-elif [[ "${COMPILER_TYPE}" =~ "GCC4.9"* ]]; then
-	make -j"${JOBS}" O=out ARCH=arm64 CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-linux-android-"
-else
-	make -j"${JOBS}" O=out ARCH=arm64 CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-maestro-linux-gnu-" CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-maestro-linux-gnueabi-"
-fi
+make O=out ARCH=arm64 whyred_defconfig
+make -j"${JOBS}" O=out ARCH=arm64 CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-elf-" CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-eabi-"
 
 END=$(date +"%s")
 DIFF=$(( END - START ))
@@ -76,8 +68,8 @@ DIFF=$(( END - START ))
 
 if ! [ -f "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb ]; then
 	echo -e "Kernel compilation failed, See buildlog to fix errors"
-	tg_channelcast "Build for ${DEVICE} <b>failed</b> in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! Check Semaphore for errors!"
-	tg_groupcast "Build for ${DEVICE} <b>failed</b> in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! Check Semaphore for errors @nysascape! @acruxci"
+	tg_channelcast "❌Build Failed in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)!"
+	tg_groupcast "BUILD FAILED LMAO !! @eve_enryu @reinazhardci"
 	exit 1
 fi
 
@@ -93,5 +85,5 @@ curl -sLo zipsigner-3.0.jar https://raw.githubusercontent.com/baalajimaestro/Any
 java -jar zipsigner-3.0.jar "${TEMPZIPNAME}" "${ZIPNAME}"
 
 "${TELEGRAM}" -f "$ZIPNAME" -c "${CI_CHANNEL}"
-tg_channelcast "Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)!"
-tg_groupcast "Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! @acruxci"
+tg_channelcast "✅Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)!"
+tg_groupcast "✅Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! @reinazhardci"
