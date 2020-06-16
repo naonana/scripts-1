@@ -119,8 +119,8 @@ makekernel() {
     export CXX="ccache g++"
     export PATH="/usr/lib/ccache:$PATH"
     ccache -M 5G
-    export CROSS_COMPILE=${KERNELDIR}/gcc/aarch64-linux-elf/bin/aarch64-linux-elf-
-    export CROSS_COMPILE_ARM32=${KERNELDIR}/gcc32/bin/arm-linux-eabi-
+    export CROSS_COMPILE=${KERNELDIR}/gcc/bin/aarch64-elf-
+    export CROSS_COMPILE_ARM32=${KERNELDIR}/gcc32/bin/arm-eabi-
     make O=out ARCH=arm64 ${DEFCONFIG}
     make -j32 O=out ARCH=arm64 #CC=clang CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi-
     # Check if compilation is done successfully.
