@@ -82,8 +82,8 @@ makekernel() {
     # Clean any old AnyKernel
     rm -rf ${ANYKERNEL}
     git clone https://github.com/Reinazhard/AnyKernel3 -b master anykernel3
-    export CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-elf-"
-    export CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-eabi-"
+    export CROSS_COMPILE="${KERNELDIR}/gcc/aarch64-linux-elf/bin/aarch64-linux-elf-"
+    export CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-linux-eabi-"
     kernelstringfix
     export PATH="${KERNELDIR}/clang/bin:$PATH"
     make O=out ARCH=arm64 ${DEFCONFIG}
