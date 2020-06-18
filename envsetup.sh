@@ -19,7 +19,7 @@ OUTDIR=${KERNELDIR}/out
 #COMPILER_STRING='Proton Clang'
 #COMPILER_TYPE='clang'
 # Default to GCC from Arter
-git clone -j32 git@github.com:Reinazhard/gcc.git -b 11.x-arm --depth=1 "${KERNELDIR}/gcc32"
+git clone -j32 https://github.com/Reinazhard/gcc.git -b 11.x-arm --depth=1 "${KERNELDIR}/gcc32"
 git clone -j32 https://github.com/milouk/gcc-prebuilt-elf-toolchains.git --depth=1 "${KERNELDIR}/gcc"
 COMPILER_STRING='GCC 11'
 COMPILER_TYPE='GCC'
