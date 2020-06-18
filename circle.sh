@@ -51,7 +51,7 @@ setversioning() {
 
 # Send to main group
 tg_groupcast() {
-    "${TELEGRAM}" -c "${TG_GROUP}" -H \
+    "${TELEGRAM}" -c "${TG_GROUP}" -H -D \
     "$(
 		for POST in "${@}"; do
 			echo "${POST}"
@@ -61,7 +61,7 @@ tg_groupcast() {
 
 # Send to channel
 tg_channelcast() {
-    "${TELEGRAM}" -c "${CI_CHANNEL}" -H \
+    "${TELEGRAM}" -c "${CI_CHANNEL}" -H -D \
     "$(
 		for POST in "${@}"; do
 			echo "${POST}"
@@ -144,14 +144,14 @@ setver2() {
 }
 
 # Fix for CI builds running out of memory
-fixcilto() {
-    sed -i 's/CONFIG_LTO=y/# CONFIG_LTO is not set/g' arch/arm64/configs/${DEFCONFIG}
-    sed -i 's/CONFIG_LD_DEAD_CODE_DATA_ELIMINATION=y/# CONFIG_LD_DEAD_CODE_DATA_ELIMINATION is not set/g' arch/arm64/configs/${DEFCONFIG}
-}
+#fixcilto() {
+  #  sed -i 's/CONFIG_LTO=y/# CONFIG_LTO is not set/g' arch/arm64/configs/${DEFCONFIG}
+ #   sed -i 's/CONFIG_LD_DEAD_CODE_DATA_ELIMINATION=y/# CONFIG_LD_DEAD_CODE_DATA_ELIMINATION is not set/g' arch/arm64/configs/${DEFCONFIG}
+#}
 
 ## Start the kernel buildflow ##
 setversioning
-fixcilto
+#fixcilto
 tg_groupcast "🔨 ${KERNEL} compilation started at $(date +%Y%m%d-%H%M)!"
 tg_channelcast "🔨 Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 	"Latest Commit: <code>${COMMIT_POINT}</code>" \
