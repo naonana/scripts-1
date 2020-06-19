@@ -98,11 +98,18 @@ makekernel() {
 	    exit 1
     fi
 }
+#Oldcam Newcam Test
+copycat() {
+    # Copy compiled kernel
+    cp "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb "${ANYKERNEL}"/oldcam
+    
+    cd ..
+}
 
 # Ship the compiled kernel
 shipkernel() {
     # Copy compiled kernel
-    cp "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb "${ANYKERNEL}"/
+    cp "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb "${ANYKERNEL}"/newcam
 
     # Zip the kernel, or fail
     cd "${ANYKERNEL}" || exit
@@ -160,7 +167,7 @@ tg_channelcast "🔨 Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 
 START=$(date +"%s")
 makekernel || exit 1
-shipkernel
+copycat
 setver2
 setnewcam
 makekernel || exit 1
