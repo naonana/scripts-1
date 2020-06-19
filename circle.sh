@@ -78,10 +78,12 @@ kernelstringfix() {
 }
 
 # Make the kernel
-makekernel() {
+cloneany() {
     # Clean any old AnyKernel
     rm -rf ${ANYKERNEL}
     git clone https://github.com/Reinazhard/AnyKernel3 -b master anykernel3
+}   
+makekernel() {    
     export CROSS_COMPILE="${KERNELDIR}/gcc/aarch64-linux-elf/bin/aarch64-linux-elf-"
     export CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-linux-eabi-"
     kernelstringfix
@@ -102,8 +104,6 @@ makekernel() {
 copycat() {
     # Copy compiled kernel
     cp "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb "${ANYKERNEL}"/oldcam
-    
-    cd ..
 }
 
 # Ship the compiled kernel
@@ -166,6 +166,7 @@ tg_channelcast "🔨 Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 
 
 START=$(date +"%s")
+cloneany
 makekernel || exit 1
 copycat
 setver2
