@@ -81,7 +81,7 @@ kernelstringfix() {
 cloneany() {
     # Clean any old AnyKernel
     rm -rf ${ANYKERNEL}
-    git clone https://github.com/Reinazhard/AnyKernel3 -b master anykernel3
+    git clone -j32 https://github.com/Reinazhard/AnyKernel3 -b two anykernel3
 }   
 makekernel() {    
     export CROSS_COMPILE="${KERNELDIR}/gcc/aarch64-linux-elf/bin/aarch64-linux-elf-"
