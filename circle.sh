@@ -37,11 +37,12 @@ PATH="${KERNELDIR}/clang/bin:$PATH"
 
 # Kernel revision
 KERNELRELEASE=EAS
-
+VERSION=x1
+export VERSION
 # Function to replace defconfig versioning
 setversioning() {
     	# For staging branch
-	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-OldCam-${BUILD_DATE}"
+	    KERNELNAME="${KERNEL}-${VERSION}-${KERNELRELEASE}-${BUILD_DATE}"
 	    sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     # Export our new localversion and zipnames
     export KERNELTYPE KERNELNAME
@@ -109,7 +110,7 @@ copycat() {
 # Ship the compiled kernel
 shipkernel() {
     # Copy compiled kernel
-    cp "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb "${ANYKERNEL}"/newcam
+    cp "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb "${ANYKERNEL}"/
 
     # Zip the kernel, or fail
     cd "${ANYKERNEL}" || exit
@@ -143,7 +144,7 @@ clearout() {
 
 #Setver 2 for newcam
 setver2() {
-    KERNELNAME="${KERNEL}-${KERNELRELEASE}-NewCam-${BUILD_DATE}"
+    KERNELNAME="${KERNEL}-${VERSION}-${KERNELRELEASE}-${BUILD_DATE}"
     sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     export KERNELTYPE KERNELNAME
     export TEMPZIPNAME="${KERNELNAME}-unsigned.zip"
@@ -151,14 +152,14 @@ setver2() {
 }
 
 # Fix for CI builds running out of memory
-fixcilto() {
-    sed -i 's/CONFIG_LTO=y/# CONFIG_LTO is not set/g' arch/arm64/configs/${DEFCONFIG}
-    sed -i 's/CONFIG_LD_DEAD_CODE_DATA_ELIMINATION=y/# CONFIG_LD_DEAD_CODE_DATA_ELIMINATION is not set/g' arch/arm64/configs/${DEFCONFIG}
-}
+#fixcilto() {
+#    sed -i 's/CONFIG_LTO=y/# CONFIG_LTO is not set/g' arch/arm64/configs/${DEFCONFIG}
+#    sed -i 's/CONFIG_LD_DEAD_CODE_DATA_ELIMINATION=y/# CONFIG_LD_DEAD_CODE_DATA_ELIMINATION is not set/g' arch/arm64/configs/${DEFCONFIG}
+#}
 
 ## Start the kernel buildflow ##
 setversioning
-fixcilto
+#fixcilto
 tg_groupcast "🔨 ${KERNEL} compilation started at $(date +%Y%m%d-%H%M)!"
 tg_channelcast "🔨 Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 	"Latest Commit: <code>${COMMIT_POINT}</code>" \
@@ -168,9 +169,10 @@ tg_channelcast "🔨 Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 START=$(date +"%s")
 cloneany
 makekernel || exit 1
-copycat
+shipkernel
 setver2
 setnewcam
+cloneany
 makekernel || exit 1
 shipkernel
 END=$(date +"%s")
