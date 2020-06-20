@@ -19,14 +19,18 @@ OUTDIR=${KERNELDIR}/out
 #COMPILER_STRING='Proton Clang'
 #COMPILER_TYPE='clang'
 # Default to GCC from Arter
-git clone -j32 https://github.com/Reinazhard/gcc.git -b 11.x-arm --depth=1 "${KERNELDIR}/gcc32"
-git clone -j32 https://github.com/milouk/gcc-prebuilt-elf-toolchains.git --depth=1 "${KERNELDIR}/gcc"
-COMPILER_STRING='GCC 11'
+#git clone -j32 https://github.com/Reinazhard/gcc.git -b 11.x-arm --depth=1 "${KERNELDIR}/gcc32"
+#git clone -j32 https://github.com/milouk/gcc-prebuilt-elf-toolchains.git --depth=1 "${KERNELDIR}/gcc"
+#COMPILER_STRING='GCC 11'
+#COMPILER_TYPE='GCC'
+git clone -j32 https://github.com/kdrag0n/aarch64-elf-gcc.git --depth=1 "${KERNELDIR}/gcc"
+git clone -j32 https://github.com/kdrag0n/arm-eabi-gcc.git --depth=1 "${KERNELDIR}/gcc32"
+COMPILER_STRING='GCC 9.2'
 COMPILER_TYPE='GCC'
 
 export COMPILER_STRING COMPILER_TYPE KERNELDIR SCRIPTS OUTDIR
 
-git clone https://github.com/fabianonline/telegram.sh/ telegram
+git clone -j32 https://github.com/fabianonline/telegram.sh/ telegram
 
 # Export Telegram.sh
 TELEGRAM=${KERNELDIR}/telegram/telegram
