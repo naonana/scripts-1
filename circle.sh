@@ -23,6 +23,7 @@ COMMIT_POINT="$(git log --pretty=format:'%h : %s' -10)"
 #Kearipan Lokal
 export KBUILD_BUILD_USER=reina
 export KBUILD_BUILD_HOST=Laptop-Sangar
+export VERSION=x1
 
 # Kernel groups
 CI_CHANNEL=-1001174078190
@@ -41,7 +42,7 @@ KERNELRELEASE=EAS
 # Function to replace defconfig versioning
 setversioning() {
     	# For staging branch
-	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-OldCam-${BUILD_DATE}"
+	    KERNELNAME="${KERNEL}-${VERSION}-${KERNELRELEASE}-${BUILD_DATE}"
 	    sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     # Export our new localversion and zipnames
     export KERNELTYPE KERNELNAME
