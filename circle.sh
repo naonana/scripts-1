@@ -169,6 +169,7 @@ tg_channelcast "🔨 Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 START=$(date +"%s")
 cloneany
 makekernel || exit 1
+shipkernel
 setver2
 setnewcam
 cloneany
