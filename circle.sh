@@ -11,7 +11,7 @@ export TELEGRAM_TOKEN=1176154929:AAEwBruEeSm92J2VgHGrLuJroL4oKkd0j-k #Plox dont 
 export ANYKERNEL=$(pwd)/anykernel3
 
 # Avoid hardcoding things
-VERSION=r2
+VERSION=r3
 KERNEL=Zhard
 DEFCONFIG=whyred_defconfig
 DEVICE=Whyred
