@@ -19,7 +19,7 @@ OUTDIR=${KERNELDIR}/out
 #COMPILER_STRING='Proton Clang'
 #COMPILER_TYPE='clang'
 # Default to GCC from Arter
-git clone -j32 https://github.com/arter97/arm64-gcc.git --depth=1 "${KERNELDIR}/gcc32"
+git clone -j32 https://github.com/arter97/arm32-gcc.git --depth=1 "${KERNELDIR}/gcc32"
 git clone -j32 https://github.com/arter97/arm64-gcc.git --depth=1 "${KERNELDIR}/gcc"
 COMPILER_STRING='GCC 10'
 COMPILER_TYPE='GCC'
