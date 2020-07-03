@@ -158,10 +158,10 @@ tg_channelcast "🔨Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 START=$(date +"%s")
 makekernel || exit 1
 shipkernel
-#setver2
-#setnewcam
-#makekernel || exit 1
-#shipkernel
+setver2
+setnewcam
+makekernel || exit 1
+shipkernel
 END=$(date +"%s")
 DIFF=$(( END - START ))
 tg_channelcast "✅Build for ${DEVICE} with ${COMPILER_STRING} took $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)!"
