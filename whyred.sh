@@ -151,7 +151,7 @@ fixcilto() {
 setversioning
 fixcilto
 tg_groupcast "🔨 Compilation started at $(date +%Y%m%d-%H%M)!" \
-    "🔨Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
+    "Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 	"Latest Commit: <code>${COMMIT_POINT}</code>"
 tg_channelcast "🔨Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 	"Latest Commit: <code>${COMMIT_POINT}</code>" \
