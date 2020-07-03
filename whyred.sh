@@ -139,7 +139,7 @@ clearout() {
 #    export KERNELTYPE KERNELNAME
 #    export TEMPZIPNAME="${KERNELNAME}-unsigned.zip"
 #    export ZIPNAME="${KERNELNAME}.zip"
-}
+#}
 
 # Fix for CI builds running out of memory
 fixcilto() {
