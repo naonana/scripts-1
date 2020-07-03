@@ -23,7 +23,7 @@ COMMIT_POINT="$(git log --pretty=format:'%h : %s' -10)"
 #Kearipan Lokal
 export KBUILD_BUILD_USER=reina
 export KBUILD_BUILD_HOST=Laptop-Sangar
-export VERSION=x1
+export VERSION=x1.5
 
 # Kernel groups
 CI_CHANNEL=-1001174078190
