@@ -31,7 +31,7 @@ export KBUILD_BUILD_HOST=Laptop-Sangar
 
 # Kernel groups
 CI_CHANNEL=-1001174078190
-TG_GROUP=-1001493260868
+TG_GROUP=-1001167537075
 
 #Datetime
 DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
@@ -114,15 +114,10 @@ makekernel() {
     git clone https://github.com/Reinazhard/AnyKernel3 -b master anykernel3
     kernelstringfix
     #export PATH="${KERNELDIR}/clang/bin:$PATH"
-    export CCACHE_DIR="$HOME/.ccache"
-    export CC="ccache gcc"
-    export CXX="ccache g++"
-    export PATH="/usr/lib/ccache:$PATH"
-    ccache -M 5G
     export CROSS_COMPILE=${KERNELDIR}/gcc/bin/aarch64-elf-
     export CROSS_COMPILE_ARM32=${KERNELDIR}/gcc32/bin/arm-eabi-
     make O=out ARCH=arm64 ${DEFCONFIG}
-    make -j32 O=out ARCH=arm64 #CC=clang CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi-
+    make -j(nproc --all) O=out ARCH=arm64 #CC=clang CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi-
     # Check if compilation is done successfully.
     if ! [ -f "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb ]; then
 	    END=$(date +"%s")
