@@ -147,7 +147,7 @@ fixcilto() {
 
 ## Start the kernel buildflow ##
 setversioning
-fixcilto
+#fixcilto
 tg_groupcast "🔨 Compilation started at $(date +%Y%m%d-%H%M)!" \
     "Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 	"Latest Commit: <code>${COMMIT_POINT}</code>"
