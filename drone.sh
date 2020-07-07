@@ -11,10 +11,10 @@
 . "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"/envsetup.sh
 
 # Clone our AnyKernel3 branch to KERNELDIR
-git clone -j32 https://github.com/Reinazhard/AnyKernel3.git -b master anykernel3
+git clone -j32 https://github.com/Reinazhard/AnyKernel3.git -b master anykernel3 --depth=1
 
 # Clone Telegram binaries
-git clone -j32 https://github.com/fabianonline/telegram.sh/ telegram
+git clone -j32 https://github.com/fabianonline/telegram.sh/ telegram --depth=1
 
 # Send to main group
 tg_groupcast() {
@@ -58,11 +58,11 @@ mkdir "${KERNELDIR}"/out
 ln -s "${SEMAPHORE_CACHE_DIR}"/out "${KERNELDIR}"/out
 rm -rf "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb
 
-export CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-linux-elf-" 
-export CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-linux-eabi-"
+export CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-elf-" 
+export CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-eabi-"
 
 make O=out ARCH=arm64 whyred_defconfig
-make -j16 O=out ARCH=arm64 #CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-linux-elf-" CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-linux-eabi-"
+make -j${JOBS} O=out ARCH=arm64 #CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-linux-elf-" CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-linux-eabi-"
 
 END=$(date +"%s")
 DIFF=$(( END - START ))

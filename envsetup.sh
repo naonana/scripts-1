@@ -17,20 +17,20 @@ BUILD_DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M")
 
 # Pick your poison
         # Default to GCC from kdrag0n
-        git clone -j32 https://github.com/Reinazhard/gcc.git -b 11.x --depth=1 "${KERNELDIR}/gcc"
-        git clone -j32 https://github.com/Reinazhard/gcc.git -b 11.x-arm --depth=1 "${KERNELDIR}/gcc32"
-        COMPILER_STRING='GCC 11'
-        COMPILER_TYPE='GCC11'
+        git clone -j32 https://github.com/arter97/arm64-gcc.git --depth=1 "${KERNELDIR}/gcc"
+        git clone -j32 https://github.com/arter97/arm32-gcc.git --depth=1 "${KERNELDIR}/gcc32"
+        COMPILER_STRING='GCC 10'
+        COMPILER_TYPE='GCC10'
 
 export COMPILER_STRING COMPILER_TYPE KERNELDIR SCRIPTS OUTDIR BUILD_DATE
 
 # Do some silly defconfig replacements
 	# For staging branch
-	KERNELTYPE=HMP
-	KERNELNAME="${KERNEL}-${KERNELRELEASE}-OldCam-${BUILD_DATE}"
-	sed -i "51s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/whyred_defconfig
-	sed -i 's/CONFIG_LTO=y/# CONFIG_LTO is not set/g' arch/arm64/configs/whyred_defconfig
-    	sed -i 's/CONFIG_LD_DEAD_CODE_DATA_ELIMINATION=y/# CONFIG_LD_DEAD_CODE_DATA_ELIMINATION is not set/g' arch/arm64/configs/whyred_defconfig
+	KERNELTYPE=EAS
+	KERNELNAME="${KERNEL}-${KERNELRELEASE}-${BUILD_DATE}"
+	sed -i "s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/whyred_defconfig
+	#sed -i 's/CONFIG_LTO=y/# CONFIG_LTO is not set/g' arch/arm64/configs/whyred_defconfig
+    #	sed -i 's/CONFIG_LD_DEAD_CODE_DATA_ELIMINATION=y/# CONFIG_LD_DEAD_CODE_DATA_ELIMINATION is not set/g' arch/arm64/configs/whyred_defconfig
 
 export KERNELTYPE KERNELNAME
 
