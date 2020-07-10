@@ -162,9 +162,7 @@ setversioning
 fixcilto
 tg_groupcast "🔨 ${KERNEL} compilation started at $(date +%Y%m%d-%H%M)!"
 tg_channelcast "🔨 Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
-	"Latest Commit: <code>${COMMIT_POINT}</code>" \
-	"For moar cl, check my repo https://github.com/Reinazhard/kranul.git" 
-
+	"Latest Commit: <code>${COMMIT_POINT}</code>" 
 
 START=$(date +"%s")
 cloneany
