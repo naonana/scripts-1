@@ -160,7 +160,7 @@ setversioning
 fixcilto
 tg_groupcast "🔨 ${KERNEL} compilation started at $(date +%Y%m%d-%H%M)!"
 tg_channelcast "🔨 Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
-	"Branch: ${PARSE_BRANCE} \
+	"Branch: <code>${PARSE_BRANCH}</code>" \
 	"Latest Commit: <code>${COMMIT_POINT}</code>" 
 
 
