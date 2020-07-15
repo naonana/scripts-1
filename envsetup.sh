@@ -23,9 +23,9 @@ OUTDIR=${KERNELDIR}/out
 #git clone -j32 https://github.com/milouk/gcc-prebuilt-elf-toolchains.git --depth=1 "${KERNELDIR}/gcc"
 #COMPILER_STRING='GCC 11'
 #COMPILER_TYPE='GCC'
-git clone -j32 https://github.com/kdrag0n/aarch64-elf-gcc.git --depth=1 "${KERNELDIR}/gcc"
-git clone -j32 https://github.com/kdrag0n/arm-eabi-gcc.git --depth=1 "${KERNELDIR}/gcc32"
-COMPILER_STRING='GCC 9.2'
+git clone -j32 https://github.com/ItsVixano/aarch64-elf-9.3.0.git --depth=1 "${KERNELDIR}/gcc"
+git clone -j32 https://github.com/ItsVixano/arm-eabi-9.3.0.git --depth=1 "${KERNELDIR}/gcc32"
+COMPILER_STRING='GCC 9.3'
 COMPILER_TYPE='GCC'
 
 export COMPILER_STRING COMPILER_TYPE KERNELDIR SCRIPTS OUTDIR
