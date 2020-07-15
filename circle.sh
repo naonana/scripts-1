@@ -156,6 +156,7 @@ fixcilto() {
 }
 
 ## Start the kernel buildflow ##
+apt-get install openjdk-11-jdk openjdk-11-jre
 setversioning
 fixcilto
 tg_groupcast "🔨 ${KERNEL} compilation started at $(date +%Y%m%d-%H%M)!"
