@@ -36,14 +36,12 @@ BUILD_DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M")
 PATH="${KERNELDIR}/clang/bin:$PATH"
 
 # Kernel revision
-KERNELRELEASE=EAS
-VERSION=x1
 export VERSION
 # Function to replace defconfig versioning
 setversioning() {
     	# For staging branch
-	    KERNELNAME="${KERNEL}-${VERSION}-${KERNELRELEASE}-OldCam"
-	    sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
+	    KERNELNAME="${KERNEL}-${KERNELRELEASE}-Oldcam-${BUILD_DATE}"
+	    sed -i "1s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     # Export our new localversion and zipnames
     export KERNELTYPE KERNELNAME
     export TEMPZIPNAME="${KERNELNAME}-unsigned.zip"
@@ -144,7 +142,7 @@ clearout() {
 
 #Setver 2 for newcam
 setver2() {
-    KERNELNAME="${KERNEL}-${VERSION}-${KERNELRELEASE}-NewCam"
+    KERNELNAME="${KERNEL}-${KERNELRELEASE}-Newcam-${BUILD_DATE}"
     sed -i "50s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/${DEFCONFIG}
     export KERNELTYPE KERNELNAME
     export TEMPZIPNAME="${KERNELNAME}-unsigned.zip"
@@ -162,8 +160,8 @@ setversioning
 fixcilto
 tg_groupcast "🔨 ${KERNEL} compilation started at $(date +%Y%m%d-%H%M)!"
 tg_channelcast "🔨 Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
-	"Latest Commit: <code>${COMMIT_POINT}</code>" \
-	"For moar cl, check my repo https://github.com/Reinazhard/kranul.git" 
+	"Branch: ${PARSE_BRANCE} \
+	"Latest Commit: <code>${COMMIT_POINT}</code>" 
 
 
 START=$(date +"%s")
