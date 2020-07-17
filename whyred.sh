@@ -107,11 +107,8 @@ shipkernel() {
 
     # Zip the kernel, or fail
     cd "${ANYKERNEL}" || exit
-    zip -r9 "${TEMPZIPNAME}" *
+    zip -r9 "${ZIPNAME}" *
 
-    # Sign the zip before sending it to Telegram
-    curl -sLo zipsigner-3.0.jar https://raw.githubusercontent.com/baalajimaestro/AnyKernel2/master/zipsigner-3.0.jar
-    java -jar zipsigner-3.0.jar ${TEMPZIPNAME} ${ZIPNAME}
 
     # Ship it to the CI channel
     "${TELEGRAM}" -f "$ZIPNAME" -c "${CI_CHANNEL}"
@@ -147,7 +144,7 @@ fixcilto() {
 
 ## Start the kernel buildflow ##
 setversioning
-#fixcilto
+fixcilto
 tg_groupcast "🔨 Compilation started at $(date +%Y%m%d-%H%M)!" \
     "Kernel: <code>${KERNEL}, release ${KERNELRELEASE}</code>" \
 	"Latest Commit: <code>${COMMIT_POINT}</code>"
