@@ -22,8 +22,8 @@ OUTDIR=${KERNELDIR}/out
 #COMPILER_STRING='Avalon Clang'
 #COMPILER_TYPE='clang'
 # Default to GCC from Arter
-git clone -j32 https://github.com/ItsVixano/aarch64-elf-9.3.0 --depth=1 "${KERNELDIR}/gcc"
-git clone -j32 https://github.com/ItsVixano/arm-eabi-9.3.0 --depth=1 "${KERNELDIR}/gcc32"
+git clone -j32 https://github.com/arter97/arm64-gcc --depth=1 "${KERNELDIR}/gcc"
+git clone -j32 https://github.com/arter97/arm32-gcc --depth=1 "${KERNELDIR}/gcc32"
 COMPILER_STRING='GCC 9.3'
 COMPILER_TYPE='gcc'
 
