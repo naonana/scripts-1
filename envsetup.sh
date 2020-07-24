@@ -14,18 +14,18 @@ KERNELDIR="$(pwd)"
 SCRIPTS=${KERNELDIR}/kernelscripts
 OUTDIR=${KERNELDIR}/out
        
-git clone https://github.com/kdrag0n/proton-clang.git --depth=1 "${KERNELDIR}"/clang
+#git clone https://github.com/kdrag0n/proton-clang.git --depth=1 "${KERNELDIR}"/clang
 #git clone https://github.com/Haseo97/Avalon-Clang-11.0.1.git --depth=1 "${KERNELDIR}"/clang
 #git clone https://github.com/STRIX-Project/STRIX-clang.git --depth=1 "${KERNELDIR}"/clang
 #git clone https://github.com/Panchajanya1999/azure-clang.git --depth=1 "${KERNELDIR}"/clang
-COMPILER_STRING='Proton Clang'
+#COMPILER_STRING='Proton Clang'
 #COMPILER_STRING='Avalon Clang'
-COMPILER_TYPE='clang'
+#COMPILER_TYPE='clang'
 # Default to GCC from Arter
-#git clone -j32 https://github.com/ItsVixano/aarch64-elf-9.3.0 --depth=1 "${KERNELDIR}/gcc"
-#git clone -j32 https://github.com/ItsVixano/arm-eabi-9.3.0 --depth=1 "${KERNELDIR}/gcc32"
-#COMPILER_STRING='GCC 9.3'
-#COMPILER_TYPE='gcc'
+git clone -j32 https://github.com/ItsVixano/aarch64-elf-9.3.0 --depth=1 "${KERNELDIR}/gcc"
+git clone -j32 https://github.com/ItsVixano/arm-eabi-9.3.0 --depth=1 "${KERNELDIR}/gcc32"
+COMPILER_STRING='GCC 9.3'
+COMPILER_TYPE='gcc'
 
 export COMPILER_STRING COMPILER_TYPE KERNELDIR SCRIPTS OUTDIR
 
