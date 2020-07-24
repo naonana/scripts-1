@@ -118,7 +118,7 @@ shipkernel() {
 }
 
 setnewcam() {
-    sed -i "653s/# CONFIG_MACH_XIAOMI_NEW_CAMERA is not set/CONFIG_MACH_XIAOMI_NEW_CAMERA=y/g" arch/arm64/configs/${DEFCONFIG}
+    sed -i "s/# CONFIG_MACH_XIAOMI_NEW_CAMERA is not set/CONFIG_MACH_XIAOMI_NEW_CAMERA=y/g" arch/arm64/configs/${DEFCONFIG}
     echo -e "Newcam ready"
 }
 
