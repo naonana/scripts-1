@@ -14,7 +14,7 @@ KERNELDIR="$(pwd)"
 SCRIPTS=${KERNELDIR}/kernelscripts
 OUTDIR=${KERNELDIR}/out
        
-git clone https://github.com/kdrag0n/proton-clang.git "${KERNELDIR}"/clang
+#git clone https://github.com/kdrag0n/proton-clang.git --depth=1 "${KERNELDIR}"/clang
 #git clone https://github.com/Haseo97/Avalon-Clang-11.0.1.git --depth=1 "${KERNELDIR}"/clang
 #git clone https://github.com/STRIX-Project/STRIX-clang.git --depth=1 "${KERNELDIR}"/clang
 #git clone https://github.com/Panchajanya1999/azure-clang.git --depth=1 "${KERNELDIR}"/clang
@@ -36,6 +36,9 @@ TELEGRAM=${KERNELDIR}/telegram/telegram
 
 export TELEGRAM JOBS
 
+mkdir -p clang
 cd clang
-git reset --hard bddccf2ceed07fd6fc023872fc1b946690265652
+wget https://github.com/kdrag0n/proton-clang/archive/20200719.tar.gz
+tar -xf 20200719.tar.gz
+rm -rf 20200719.tar.gz
 cd ../
