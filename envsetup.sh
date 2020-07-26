@@ -38,7 +38,7 @@ export TELEGRAM JOBS
 
 mkdir -p clang
 cd clang
-wget https://github.com/kdrag0n/proton-clang/archive/20200719.tar.gz
+wget https://github.com/kdrag0n/proton-clang/archive/20200719.tar.gz --quiet
 tar -xf 20200719.tar.gz
 rm -rf 20200719.tar.gz
 cd ../
