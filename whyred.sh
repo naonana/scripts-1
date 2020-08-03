@@ -97,7 +97,7 @@ makekernel() {
 	    DIFF=$(( END - START ))
 	    echo -e "build Failed LMAO !!, See buildlog to fix errors"
 	    tg_channelcast "❌Build Failed in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)!"
-	    tg_groupcast "❌Build Failed in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! @eve_enryu @reinazhardci"
+	    tg_groupcast "❌Build Failed in $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)! @eve_enryu @reinazhardci ${CIRCLE_BUILD_URL}"
 	    exit 1
     fi
 }
