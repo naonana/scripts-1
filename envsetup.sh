@@ -28,7 +28,6 @@ export COMPILER_STRING COMPILER_TYPE KERNELDIR SCRIPTS OUTDIR BUILD_DATE
 	# For staging branch
 	KERNELTYPE=EAS
 	KERNELNAME="${KERNEL}-${KERNELRELEASE}-${BUILD_DATE}"
-	sed -i "s/.*/CONFIG_LOCALVERSION=\"-${KERNELNAME}\"/g" arch/arm64/configs/whyred_defconfig
 	#sed -i 's/CONFIG_LTO=y/# CONFIG_LTO is not set/g' arch/arm64/configs/whyred_defconfig
     #	sed -i 's/CONFIG_LD_DEAD_CODE_DATA_ELIMINATION=y/# CONFIG_LD_DEAD_CODE_DATA_ELIMINATION is not set/g' arch/arm64/configs/whyred_defconfig
 
@@ -51,7 +50,7 @@ export DEVICE CIPROVIDER TEMPZIPNAME ZIPNAME CI_CHANNEL TG_GROUP
 # Export Telegram.sh Location
 TELEGRAM=${KERNELDIR}/telegram/telegram
 # Make sure our fekking token is exported ig?
-TELEGRAM_TOKEN=${BOT_API_TOKEN}
+TELEGRAM_TOKEN="1117408755:AAHBQzUtTUmO1WuayFIsHKNCaA3CA0OANHc"
 # Export AnyKernel Location
 ANYKERNEL=$(pwd)/anykernel3
 
