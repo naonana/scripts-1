@@ -8,7 +8,6 @@
 # Drone build script for Acrux
 
 # shellcheck source=/dev/null
-. "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"/envsetup.sh
 
 # Clone our AnyKernel3 branch to KERNELDIR
 git clone -j32 https://github.com/Reinazhard/AnyKernel3.git -b master anykernel3 --depth=1
@@ -58,8 +57,8 @@ mkdir "${KERNELDIR}"/out
 ln -s "${SEMAPHORE_CACHE_DIR}"/out "${KERNELDIR}"/out
 rm -rf "${OUTDIR}"/arch/arm64/boot/Image.gz-dtb
 
-export CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-elf-" 
-export CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-eabi-"
+export CROSS_COMPILE="/drone/src/gcc/bin/aarch64-elf-" 
+export CROSS_COMPILE_ARM32="/drone/src/gcc32/bin/arm-eabi-"
 
 make O=out ARCH=arm64 whyred_defconfig
 make -j${JOBS} O=out ARCH=arm64 #CROSS_COMPILE="${KERNELDIR}/gcc/bin/aarch64-linux-elf-" CROSS_COMPILE_ARM32="${KERNELDIR}/gcc32/bin/arm-linux-eabi-"
